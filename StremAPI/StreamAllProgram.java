@@ -11,13 +11,22 @@ public class StreamAllProgram {
 
         // Convert a List<String> to uppercase using Streams.
         List<String> names = Arrays.asList("rupesh", "aditya", "sunit");
+        // names.stream().map((i) -> i.toUpperCase()).forEach(System.out::println);
         names.stream().map((i) -> i.toUpperCase()).forEach(System.out::println);
+        List<String> upperNames = names.stream()
+                .map(i -> i.toUpperCase())
+                .collect(Collectors.toList());
+
+        System.out.println(upperNames);
 
         System.out.println("===============================================================");
 
         // Given a List<Integer>, filter even numbers and collect them.
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         numbers.stream().filter((i) -> i % 2 == 0).collect(Collectors.toList()).forEach(System.out::println);
+
+        List<Integer> data = numbers.stream().filter((i) -> i % 2 == 0).collect(Collectors.toList());
+        System.out.println(data);
 
         System.out.println("===============================================================");
 
@@ -51,7 +60,6 @@ public class StreamAllProgram {
         employees.stream().collect(Collectors.groupingBy(Employee::getDepartment))
                 .forEach((key, value) -> System.out.println(key + " : " + value));
 
-
         System.out.println("===============================================================");
 
         // From the same list, find the highest-paid employee in each department.
@@ -59,9 +67,8 @@ public class StreamAllProgram {
         List<Employee1> high = Arrays.asList(new Employee1("Rupesh", "IT", 10000), new Employee1("Aditya", "HR", 20000),
                 new Employee1("Sunit", "IT", 30000));
         high.stream().collect(Collectors.groupingBy(Employee1::getDepartment))
-                .forEach((key, value) -> System.out.println(key + " : " + value.stream().max(Comparator.comparing(Employee1::getSalary))));
-
-
+                .forEach((key, value) -> System.out
+                        .println(key + " : " + value.stream().max(Comparator.comparing(Employee1::getSalary))));
 
     }
 }
@@ -111,6 +118,7 @@ class Employee1 {
     public int getSalary() {
         return salary;
     }
+
     @Override
     public String toString() {
         return name;
